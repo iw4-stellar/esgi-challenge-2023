@@ -1,1 +1,30 @@
-{}
+{
+  "base": {
+    "required": "Required",
+    "or": "or"
+  },
+  "register": {
+    "title": "Sign Up",
+    "registrationForm": {
+      "form": {
+        "name": {
+          "label": "Name",
+          "placeholder": ""
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": ""
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": ""
+        },
+        "confirmPassword": {
+          "label": "Confirm password",
+          "placeholder": ""
+        },
+        "submit": "Create Account"
+      }
+    }
+  }
+}
