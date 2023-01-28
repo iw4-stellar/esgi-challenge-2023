@@ -3,6 +3,22 @@
     <div class="form-control">
       <label class="label">
         <span class="label-text">
+          {{ $t('register.registrationForm.form.type.label') }}
+        </span>
+      </label>
+
+      <div class="btn-group flex w-full">
+        <button v-for="userType in userTypes" :key="userType.value" class="btn flex-1" :class="{
+          [userType.value === form.type ? 'btn-active' : 'btn-outline']: true
+        }" @click="form.type = userType.value">
+          {{ userType.label }}
+        </button>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text">
           {{ $t('register.registrationForm.form.name.label') }}
           <span class="text-accent">*</span>
         </span>
@@ -127,6 +143,34 @@
     </div>
   </form>
 </template>
+
+<script lang="ts">
+
+export default {
+  name: 'RegistrationForm',
+  data() {
+    return {
+      form: {
+        type: null as null | string,
+      }
+    };
+  },
+  computed: {
+    userTypes() {
+      return [
+        {
+          value: 'contributor',
+          label: this.$t('register.registrationForm.form.type.options.contributor')
+        },
+        {
+          value: 'company',
+          label: this.$t('register.registrationForm.form.type.options.company')
+        },
+      ]
+    }
+  }
+}
+</script>
 
 <style lang="postcss" scoped>
 .error {

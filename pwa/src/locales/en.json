@@ -7,6 +7,13 @@
     "title": "Sign Up",
     "registrationForm": {
       "form": {
+        "type": {
+          "label": "I want to sign up as a",
+          "options": {
+            "contributor": "Contributor",
+            "company": "Company"
+          }
+        },
         "name": {
           "label": "Name",
           "placeholder": ""
