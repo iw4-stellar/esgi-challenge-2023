@@ -6,7 +6,12 @@ const routes: RouteRecordRaw[] = [
     name: 'register',
     path: '/register',
     component: () => import('../views/Register.vue'),
-  }
+  },
+  {
+    name: 'login',
+    path: '/login',
+    component: () => import('../views/Login.vue'),
+  },
 ]
 
 const history = createWebHistory()

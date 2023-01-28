@@ -31,7 +31,37 @@
           "placeholder": ""
         },
         "submit": "Create Account"
+      },
+      "errors": {
+        "required": "This field is required",
+        "email": {
+          "invalid": "Invalid email format",
+          "unavailable": "Email address already in use"
+        },
+        "password": {
+          "length": "Password should have a length of 8-12 characters"
+        },
+        "confirmPassword": {
+          "match": "Passwords don't match"
+        }
       }
-    }
+    },
+    "signIn": "I already have an account"
+  },
+  "login": {
+    "title": "Sign In",
+    "form": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password "
+      },
+      "submit": "Sign in",
+      "errors": {
+        "invalid": "Invalid credentials. Try again"
+      }
+    },
+    "signUp": "Create an account"
   }
 }
