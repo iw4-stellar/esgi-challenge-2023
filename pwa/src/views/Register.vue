@@ -1,40 +1,96 @@
 <template>
-  <div class="register">
-    <div class="content prose">
-      <h1 class="text-center">{{ $t('register.title') }}</h1>
-      <div class="form">
-        <registration-form />
-      </div>
-      <div class="divider uppercase">
-        {{ $t('base.or') }}
-      </div>
-
-      <div class="text-center">
-        <router-link to="/login" class="link link-hover">
-          {{ $t('register.signIn') }}
-        </router-link>
-      </div>
-    </div>
+  <div class="register max-w-4xl mx-auto">
+    <fun-stepper :steps="steps">
+      <template #user-type="{ nextStep }">
+        <user-type-selector :next-step="nextStep" />
+      </template>
+      <template #login="{ previousStep, nextStep }">
+        <login-form :previous-step="previousStep" :next-step="nextStep" />
+      </template>
+      <template #verify-email="{ nextStep }">
+        <verify-email :next-step="nextStep" />
+      </template>
+      <template #profile-form="{ nextStep }">
+        <profile-form :next-step="nextStep" />
+      </template>
+    </fun-stepper>
   </div>
 </template>
 
 <script lang="ts">
-import RegistrationForm from '../components/registration/RegistrationForm.vue';
+import { defineComponent } from 'vue';
+import type { Step } from '@/../types';
+import FunStepper from '@/components/FunStepper.vue';
+import FunForm from '@/components/funComponents/FunForm.vue';
+import FunFormField from '@/components/funComponents/form/FunFormField.vue';
 
-export default {
+import UserTypeSelector from '@/components/register/UserTypeSelector.vue'
+import LoginForm from '@/components/register/LoginForm.vue'
+import VerifyEmail from '@/components/register/VerifyEmail.vue'
+import ProfileForm from '@/components/register/ProfileForm.vue'
+
+type UserType = 'funder' | 'company';
+
+export default defineComponent({
   name: 'Register',
   components: {
-    RegistrationForm,
+    FunStepper,
+    FunForm,
+    FunFormField,
+    UserTypeSelector,
+    LoginForm,
+    VerifyEmail,
+    ProfileForm,
   },
-}
+  data() {
+    return {
+      userType: null as null | UserType,
+    };
+  },
+  computed: {
+    steps(): Step[] {
+      return [
+        {
+          name: 'user-type',
+          title: this.$t('register.steps.userType')
+        },
+        {
+          name: 'login',
+          title: this.$t('register.steps.login')
+        },
+        {
+          name: 'verify-email',
+          title: this.$t('register.steps.verifyEmail')
+        },
+        {
+          name: 'profile-form',
+          title: this.$t('register.steps.profile')
+        },
+      ];
+    },
+  },
+  methods: {
+    getUserType() {
+      return this.userType;
+    },
+    setUserType(type) {
+      this.userType = type;
+    },
+  },
+  provide() {
+    return {
+      getUserType: this.getUserType,
+      setUserType: this.setUserType,
+    };
+  },
+  beforeRouteLeave() {
+    if (!this.userType) return true;
+
+    return window.confirm('Are you sure?');
+  },
+});
 </script>
 
 <style lang="postcss" scoped>
-.register {
-  @apply mt-8 pb-8 min-h-screen flex justify-center;
-}
 
-.content {
-  @apply p-8 w-full max-w-lg;
-}
 </style>

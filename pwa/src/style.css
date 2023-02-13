@@ -2,11 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.input {
+  @apply input-bordered border-2;
+}
 
-.f-input {
-  @apply input input-bordered input-primary border-2;
+.input-group > :first-child {
+  border-top-left-radius: var(--rounded-btn, 0.5rem);
+  border-top-right-radius: 0;
+  border-bottom-left-radius: var(--rounded-btn, 0.5rem);
+  border-bottom-right-radius: 0;
 }
 
 .error {
-  @apply alert bg-transparent px-0 py-2 text-error;
+  @apply alert alert-error px-3 py-2;
 }
+
+.steps .step::before {
+  @apply h-1;
+}
+
+/* .error {
+  @apply alert block bg-transparent px-0 py-2 text-error italic;
+} */
