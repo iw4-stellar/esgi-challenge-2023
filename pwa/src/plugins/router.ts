@@ -12,6 +12,11 @@ const routes: RouteRecordRaw[] = [
     path: '/login',
     component: () => import('../views/Login.vue'),
   },
+  {
+    name: 'projects',
+    path: '/projects',
+    component: () => import('../views/Projects.vue'),
+  }
 ]
 
 const history = createWebHistory()
