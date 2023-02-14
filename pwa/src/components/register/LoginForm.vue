@@ -1,7 +1,7 @@
 <template>
   <div class="login-form">
     <div class="header prose">
-      <button class="btn btn-ghost mb-2" @click="previousStep">
+      <button class="btn btn-ghost mb-2" @click="handleBack">
         <i class="pi pi-arrow-left mr-2"></i>
         {{ $t('register.login.back') }}
       </button>
@@ -112,6 +112,14 @@ import FunForm from '@/components/funComponents/FunForm.vue';
 import FunFormField from '@/components/funComponents/form/FunFormField.vue';
 import { useAuthStore } from '@/store/auth';
 
+interface LoginFormInterface {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+type LoginFormErrors = Partial<Record<keyof LoginFormInterface, string>>;
+
 export default defineComponent({
   name: 'Registerlogin.form',
   components: {
@@ -135,7 +143,7 @@ export default defineComponent({
         email: '',
         password: '',
         confirmPassword: '',
-      },
+      } as LoginFormInterface,
       showPassword: false,
     };
   },
@@ -145,9 +153,9 @@ export default defineComponent({
     },
   },
   methods: {
-    validateLogin(values) {
+    validateLogin(values: LoginFormInterface) {
       const { password, confirmPassword } = values;
-      const errors = {}
+      const errors: LoginFormErrors = {};
       
       if (password !== confirmPassword)
         errors.confirmPassword = 'match'
@@ -157,13 +165,17 @@ export default defineComponent({
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
     },
-    async handleSubmit(values, setIsSubmitting, setErrors) {
+    handleBack() {
+      this.previousStep && this.previousStep();
+    },
+    async handleSubmit(values: LoginFormInterface, setIsSubmitting: (isSubmitting: boolean) => void, setErrors: (errrors: LoginFormErrors) => void) {
       setIsSubmitting(true);
       try {
         await this.register(values);
-        this.nextStep();
-      } catch (error) {
-        setErrors(error.response.data.errors);
+
+        this.nextStep && this.nextStep();
+      } catch (error: any) {
+        setErrors(error.response.data.errors as LoginFormErrors);
       } finally {
         setIsSubmitting(false);
       }
