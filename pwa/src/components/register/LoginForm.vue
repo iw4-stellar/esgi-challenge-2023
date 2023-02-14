@@ -39,7 +39,7 @@
                 </span>
               </label>
               <div class="input-group">
-                <fun-form-field name="password" :type="passwordType" class="input flex-1" minlength="8"
+                <fun-form-field id="login-password" name="password" :type="passwordType" class="input flex-1" minlength="8"
                   maxlength="32" required />
                 <button class="btn btn-square" tabindex="-1" @click.prevent="toggleShowPassword()">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -66,7 +66,7 @@
                 </span>
               </label>
               <div class="input-group">
-                <fun-form-field name="confirmPassword" :type="passwordType" class="input flex-1" minlength="8"
+                <fun-form-field id="login-password-confirm" name="confirmPassword" :type="passwordType" class="input flex-1" minlength="8"
                   maxlength="32" :placeholder="$t('register.login.form.confirmPassword.placeholder')" required />
                 <button class="btn btn-square" tabindex="-1" @click.prevent="toggleShowPassword()">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
