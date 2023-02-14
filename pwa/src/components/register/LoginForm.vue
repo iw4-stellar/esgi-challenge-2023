@@ -12,6 +12,13 @@
       <fun-form :initial-values="form" :validate="validateLogin" @submit="handleSubmit">
         <template #default="{ onSubmit, errors, isSubmitting }">
           <form @submit.prevent="onSubmit">
+            <div class="errors">
+              <div v-if="errors.email && errors.email === 'unique'" class="error">
+                <i class="pi pi-times"></i>
+                <span>{{ $t('register.login.form.errors.email.unique') }}</span>
+              </div>
+            </div>
+
             <!-- Email -->
             <div class="form-control">
               <label class="label">
@@ -24,31 +31,29 @@
             </div>
 
             <!-- Password -->
-            <div>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">
-                    {{ $t('register.login.form.password.label') }}
-                    <span class="text-accent">*</span>
-                  </span>
-                </label>
-                <div class="input-group">
-                  <fun-form-field name="password" :type="passwordType" class="input flex-1" minlength="8"
-                    maxlength="32" required />
-                  <button class="btn btn-square" tabindex="-1" @click.prevent="toggleShowPassword()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="label">
-                  <span class="label-text-alt text-accent">
-                    {{ $t('register.login.form.password.rules.length', { min: 8, max: 32 }) }}
-                  </span>
-                </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">
+                  {{ $t('register.login.form.password.label') }}
+                  <span class="text-accent">*</span>
+                </span>
+              </label>
+              <div class="input-group">
+                <fun-form-field name="password" :type="passwordType" class="input flex-1" minlength="8"
+                  maxlength="32" required />
+                <button class="btn btn-square" tabindex="-1" @click.prevent="toggleShowPassword()">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="label">
+                <span class="label-text-alt text-accent">
+                  {{ $t('register.login.form.password.rules.length', { min: 8, max: 32 }) }}
+                </span>
               </div>
             </div>
 
@@ -76,14 +81,8 @@
               <!-- Confirm password Errors -->
               <div v-if="errors.confirmPassword">
                 <div v-show="errors.confirmPassword === 'match'" class="error">
-                  <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                      viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>{{ $t('register.login.form.errors.confirmPassword.match') }}</span>
-                  </div>
+                  <i class="pi pi-times"></i>
+                  <span>{{ $t('register.login.form.errors.confirmPassword.match') }}</span>
                 </div>
               </div>
             </div>
@@ -111,7 +110,7 @@
 import { defineComponent } from 'vue';
 import FunForm from '@/components/funComponents/FunForm.vue';
 import FunFormField from '@/components/funComponents/form/FunFormField.vue';
-
+import { useAuthStore } from '@/store/auth';
 
 export default defineComponent({
   name: 'Registerlogin.form',
@@ -122,6 +121,13 @@ export default defineComponent({
   props: {
     previousStep: Function,
     nextStep: Function,
+  },
+  setup() {
+    const authStore = useAuthStore();
+
+    const { register } = authStore;
+
+    return { register };
   },
   data() {
     return {
@@ -151,12 +157,16 @@ export default defineComponent({
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
     },
-    handleSubmit(values, setIsSubmitting) {
+    async handleSubmit(values, setIsSubmitting, setErrors) {
       setIsSubmitting(true);
-
-      setTimeout(() => {
+      try {
+        await this.register(values);
         this.nextStep();
-      }, 3000);
+      } catch (error) {
+        setErrors(error.response.data.errors);
+      } finally {
+        setIsSubmitting(false);
+      }
     },
   },
 });

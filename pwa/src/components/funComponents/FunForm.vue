@@ -31,7 +31,7 @@ export default defineComponent({
       this.errors = this.validate(this.values)
       const hasErrors = Object.keys(this.errors).length > 0
       if (!hasErrors) {
-        this.$emit('submit', this.values, this.setIsSubmitting)
+        this.$emit('submit', this.values, this.setIsSubmitting, this.setErrors)
       }
     },
     getValueByName(name: string) {
@@ -45,6 +45,12 @@ export default defineComponent({
     },
     setIsSubmitting(isSubmitting: boolean) {
       this.isSubmitting = isSubmitting
+    },
+    getErrors() {
+      return this.errors;
+    },
+    setErrors(errors: object) {
+      this.errors = errors;
     },
   },
   provide() {

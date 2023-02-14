@@ -49,6 +49,9 @@
         },
         "submit": "Create Account",
         "errors": {
+          "email": {
+            "unique": "Email address already in use"
+          },
           "confirmPassword": {
             "match": "Passwords don't match"
           }

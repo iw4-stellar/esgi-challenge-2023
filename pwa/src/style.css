@@ -14,7 +14,7 @@
 }
 
 .error {
-  @apply alert alert-error px-3 py-2;
+  @apply mt-2 px-3 py-2 flex items-center gap-4 border-2 border-error rounded-lg text-error;
 }
 
 .steps .step::before {

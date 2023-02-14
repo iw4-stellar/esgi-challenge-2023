@@ -25,7 +25,7 @@ export default defineComponent({
   },
   data() {
     return {
-      activeStepIndex: 3,
+      activeStepIndex: 0,
     };
   },
   computed: {
