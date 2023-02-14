@@ -36,6 +36,10 @@ import { defineComponent } from 'vue';
 import FunForm from '@/components/funComponents/FunForm.vue';
 import FunFormField from '@/components/funComponents/form/FunFormField.vue';
 
+interface ProfileFormInterface {
+  name: string;
+}
+
 export default defineComponent({
   name: 'RegisterProfileForm',
   components: {
@@ -46,11 +50,11 @@ export default defineComponent({
     return {
       form: {
         name: '',
-      }
+      } as ProfileFormInterface,
     };
   },
   methods: {
-    handleSubmit(values, setIsSubmitting) {
+    handleSubmit(values: ProfileFormInterface, setIsSubmitting: (isSubmitting: boolean) => void) {
       setIsSubmitting(true);
       
       setTimeout(() => {

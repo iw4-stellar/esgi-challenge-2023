@@ -62,6 +62,11 @@ import FunForm from '../components/funComponents/FunForm.vue';
 import FunFormField from '../components/funComponents/form/FunFormField.vue';
 import { defineComponent } from 'vue';
 
+interface LoginInterface {
+  email: string;
+  password: string;
+}
+
 export default defineComponent({
   name: 'Login',
   components: {
@@ -73,12 +78,12 @@ export default defineComponent({
       form: {
         email: '',
         password: '',
-      },
+      } as LoginInterface,
       failed: true,
     };
   },
   methods: {
-    handleFormSubmit(values, setIsSubmitting) {
+    handleFormSubmit(values: LoginInterface, setIsSubmitting: (isSubmitting: boolean) => void) {
       alert()
       setIsSubmitting(true)
     }
