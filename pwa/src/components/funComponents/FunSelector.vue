@@ -17,26 +17,31 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+
+interface Option {
+  value: string;
+}
+
 export default defineComponent({
   name: 'FunSelector',
   props: {
     modelValue: {},
     options: {
-      type: Array,
+      type: Array<Option>,
       default: () => [],
     },
   },
   emits: ['update:modelValue', 'change'],
   data() {
     return {
-      value: null,
+      value: null as any,
     };
   },
   methods: {
-    isActive(option) {
+    isActive(option: Option) {
       return option.value === this.value;
     },
-    select(option) {
+    select(option: Option) {
       const value = option.value;
 
       this.value = value;

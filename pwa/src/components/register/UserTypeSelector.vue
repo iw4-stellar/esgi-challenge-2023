@@ -21,7 +21,7 @@
     </div>
 
     <div class="flex justify-end">
-      <button v-if="userType" class="btn btn-ghost" @click="nextStep">
+      <button v-if="userType" class="btn btn-ghost" @click="handleNext">
         {{  $t('register.userType.next', { type: $t(`base.${userType}`)}) }}
 
         <i class="pi pi-arrow-right ml-2" ></i>
@@ -37,6 +37,7 @@ import FunSelector from '@/components/funComponents/FunSelector.vue';
 import CompanyImg from '../../assets/company.jpg'
 import FunderImg from '../../assets/funder.jpg'
 
+type UserType = 'company' | 'funder';
 
 export default defineComponent({
   name: 'RegisterUserTypeSelector',
@@ -44,12 +45,14 @@ export default defineComponent({
     FunSelector,
   },
   props: {
-    nextStep: Function,
+    nextStep: {
+      type: Function,
+    },
   },
   inject: ['getUserType', 'setUserType'],
   computed: {
-    userType() {
-      return this.getUserType()
+    userType(): UserType {
+      return (this.getUserType as () => UserType)();
     },
     userTypes() {
       return [
@@ -69,8 +72,11 @@ export default defineComponent({
     },
   },
   methods: {
-    handleTypeChange(type) {
-      this.setUserType(type);
+    handleTypeChange(type: UserType) {
+      (this.setUserType as (type: UserType) => void)(type);
+    },
+    handleNext() {
+      this.nextStep && this.nextStep();
     }
   },
 });
