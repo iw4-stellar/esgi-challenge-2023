@@ -1,1 +1,102 @@
-{}
+{
+  "base": {
+    "required": "Required",
+    "or": "or",
+    "loading": "Loading",
+    "select": "Select",
+    "selected": "Selected",
+    "company": "Company",
+    "funder": "Funder"
+  },
+  "register": {
+    "title": "Sign Up",
+    "steps": {
+      "userType": "Motivation",
+      "login": "Login",
+      "verifyEmail": "Verify",
+      "profile": "Profile"
+    },
+    "userType": {
+      "title": "How do you plan to use Funded?",
+      "options": {
+        "company": {
+          "title": "I want to launch products",
+          "subtitle": "Become a company on Funded and start launching products"
+        },
+        "funder": {
+          "title": "I want to fund products",
+          "subtitle": "Become a funder of projects hoosted on Funded"
+        }
+      },
+      "next": "Continue as a {type}"
+    },
+    "login": {
+      "title": "Alright, let's create your account!",
+      "form": {
+        "email": {
+          "label": "Email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "",
+          "rules": {
+            "length": "Password should have a length of {min} - {max} characters"
+          }
+        },
+        "confirmPassword": {
+          "label": "Confirm password",
+          "placeholder": ""
+        },
+        "submit": "Create Account",
+        "errors": {
+          "email": {
+            "unique": "Email address already in use"
+          },
+          "confirmPassword": {
+            "match": "Passwords don't match"
+          }
+        }
+      },
+      "back": "Go back"
+    },
+    "verifyEmail": {
+      "title": "You've got mail!",
+      "greeting": "Thank you for registering with us!",
+      "subtitle": "We have sent a verification code to the email address you provided during registration.",
+      "form": {
+        "code": {
+          "label": "Verification code",
+          "place": "XXXX"
+        },
+        "submit": "Verify",
+        "resend": "Resend"
+      }
+    },
+    "profile": {
+      "title": "Introduce yourself",
+      "subtitle": "Create your profile",
+      "form": {
+        "name": {
+          "label": "Name"
+        },
+        "submit": "Get started"
+      }
+    }
+  },
+  "login": {
+    "title": "Sign In",
+    "form": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password "
+      },
+      "submit": "Sign in",
+      "errors": {
+        "invalid": "Invalid credentials. Try again"
+      }
+    },
+    "signUp": "Create an account"
+  }
+}
