@@ -30,7 +30,7 @@ export default {
       return (this.getValueByName as FunFormValueGetter)(this.name)
     },
     disabled() {
-      return this.getIsSubmitting();
+      return (this.getIsSubmitting as () => boolean)();
     }
   },
   methods: {

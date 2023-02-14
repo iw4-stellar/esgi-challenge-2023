@@ -49,7 +49,7 @@ export default defineComponent({
     getErrors() {
       return this.errors;
     },
-    setErrors(errors: object) {
+    setErrors(errors: FunFormErrors) {
       this.errors = errors;
     },
   },

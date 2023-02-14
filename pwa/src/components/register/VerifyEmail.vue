@@ -43,6 +43,10 @@ import { defineComponent } from 'vue';
 import FunForm from '@/components/funComponents/FunForm.vue';
 import FunFormField from '@/components/funComponents/form/FunFormField.vue';
 
+interface VerifyEmailInterface {
+  code: string;
+}
+
 export default defineComponent({
   name: 'RegisterVerifyEmail',
   components: {
@@ -56,19 +60,19 @@ export default defineComponent({
     return {
       form: {
         code: '',
-      }
+      } as VerifyEmailInterface,
     };
   },
   methods: {
-    validate(values) {
+    validate(values: VerifyEmailInterface) {
       const errors = {}
       return errors;
     },
-    handleSubmit(values, setIsLoading) {
+    handleSubmit(values: VerifyEmailInterface, setIsLoading: (isSubmitting: boolean) => void) {
       setIsLoading(true);
 
       setTimeout(() => {
-        this.nextStep();
+        this.nextStep && this.nextStep();
       }, 3000);
     },
   }

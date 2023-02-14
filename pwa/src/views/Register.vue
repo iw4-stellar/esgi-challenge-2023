@@ -73,7 +73,7 @@ export default defineComponent({
     getUserType() {
       return this.userType;
     },
-    setUserType(type) {
+    setUserType(type: UserType) {
       this.userType = type;
     },
   },
