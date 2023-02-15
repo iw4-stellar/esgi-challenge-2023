@@ -3,6 +3,10 @@ import type { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/',
+    redirect: '/projects',
+  },
+  {
     name: 'register',
     path: '/register',
     component: () => import('../views/Register.vue'),

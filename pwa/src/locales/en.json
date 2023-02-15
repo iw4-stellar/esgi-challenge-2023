@@ -8,6 +8,11 @@
     "company": "Company",
     "funder": "Funder"
   },
+  "app": {
+    "menu": {
+      "projects": "Projects"
+    }
+  },
   "register": {
     "title": "Sign Up",
     "steps": {
