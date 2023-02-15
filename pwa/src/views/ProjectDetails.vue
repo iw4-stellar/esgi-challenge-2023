@@ -7,6 +7,7 @@
         <p>{{ project.description }}</p>
         <p class="font-bold my-6">Argent collecté : {{ project.amount }}€</p>
         <daisy-progress :percentage="project.amount/1000 * 100"></daisy-progress>
+        <button @click="fundProject" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Financer</button>
       </div>
     </div>
 
@@ -68,8 +69,11 @@ export default {
     reportComment(id: number) {
       // Ici, vous pouvez implémenter la logique pour signaler un commentaire
       alert(`Commentaire ${id} signalé`);
-    }
-  },
+    },
+    fundProject() {
+      // Ici, vous pouvez implémenter la logique pour financer un projet
+      alert(`Projet financé`);
+    },
   created() {
     // Ici, vous pouvez appeler une API pour récupérer les détails du projet en fonction de l'ID
     // Ce peut être une fonction asynchrone
@@ -85,7 +89,7 @@ export default {
  
 
   }
-};
+}};
 </script>
 
 <style>
