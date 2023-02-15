@@ -28,13 +28,9 @@
 </template>
 
 <script lang="ts">
-import { DaisyProgress } from 'daisyui';
 import companyImg from "@/assets/company.jpg";
 
 export default {
-  components: {
-    DaisyProgress
-  },
   data() {
     return {
       project: {
