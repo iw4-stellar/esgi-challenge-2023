@@ -6,17 +6,36 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Patch(
+            security: "is_granted('ROLE_ADMIN') or object == user"
+        ),
+    ],
+    normalizationContext: ['groups' => ['read:collection', 'read:Project']]
+)]
+#
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:collection'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['read:collection'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -27,6 +46,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(['read:collection'])]
+    private ?string $name = null;
 
     public function getId(): ?int
     {
@@ -74,6 +97,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function setRolesByUserType($userType): self
+    {
+        $roles = [];
+
+        if ($userType === 'company') {
+            $roles = ['ROLE_COMPANY'];
+        } else if ($userType === 'funder') {
+            $roles = ['ROLE_FUNDER'];
+        }
+
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -96,5 +134,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }
