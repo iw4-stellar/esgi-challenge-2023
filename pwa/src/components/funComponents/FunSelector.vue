@@ -1,15 +1,15 @@
 <template>
   <div class="fun-selector">
     <slot
-      name="option"
       v-for="option in options"
       :key="option.value"
+      name="option"
       v-bind="{
         option,
         onClick: () => select(option),
         isActive: option.value === value,
       }"
-    ></slot>
+    />
   </div>
 </template>
 
@@ -25,7 +25,9 @@ interface Option {
 export default defineComponent({
   name: 'FunSelector',
   props: {
-    modelValue: {},
+    modelValue: {
+      required: true,
+    },
     options: {
       type: Array<Option>,
       default: () => [],
@@ -36,6 +38,9 @@ export default defineComponent({
     return {
       value: null as any,
     };
+  },
+  created() {
+    this.value = this.modelValue;
   },
   methods: {
     isActive(option: Option) {
@@ -48,9 +53,6 @@ export default defineComponent({
       this.$emit('update:modelValue', value)
       this.$emit('change', value)
     },
-  },
-  created() {
-    this.value = this.modelValue;
   },
 });
 </script>

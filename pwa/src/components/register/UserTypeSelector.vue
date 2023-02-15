@@ -5,14 +5,24 @@
     </div>
 
     <div class="body">
-      <fun-selector class="selector" :options="userTypes" @change="handleTypeChange">
+      <fun-selector
+        class="selector"
+        :options="userTypes"
+        @change="handleTypeChange"
+      >
         <template #option="{ option, isActive, onClick }">
-          <div class="user-type" :class="{ 'user-type-active': isActive }" @click="onClick">
+          <div
+            class="user-type"
+            :class="{ 'user-type-active': isActive }"
+            @click="onClick"
+          >
             <figure class="relative">
-              <img :src="option.img" />
+              <img :src="option.img">
             </figure>
             <div class="card-body prose">
-              <h2 class="card-title">{{ option.title }}</h2>
+              <h2 class="card-title">
+                {{ option.title }}
+              </h2>
               <p>{{ option.subtitle }}</p>
             </div>
           </div>
@@ -21,10 +31,14 @@
     </div>
 
     <div class="flex justify-end">
-      <button v-if="userType" class="btn btn-ghost" @click="handleNext">
-        {{  $t('register.userType.next', { type: $t(`base.${userType}`)}) }}
+      <button
+        v-if="userType"
+        class="btn btn-ghost"
+        @click="handleNext"
+      >
+        {{ $t('register.userType.next', { type: $t(`base.${userType}`)}) }}
 
-        <i class="pi pi-arrow-right ml-2" ></i>
+        <i class="pi pi-arrow-right ml-2" />
       </button>
     </div>
   </div>
@@ -44,12 +58,12 @@ export default defineComponent({
   components: {
     FunSelector,
   },
+  inject: ['getUserType', 'setUserType'],
   props: {
     nextStep: {
       type: Function,
     },
   },
-  inject: ['getUserType', 'setUserType'],
   computed: {
     userType(): UserType {
       return (this.getUserType as () => UserType)();

@@ -1,12 +1,21 @@
 <template>
   <div class="fun-stepper">
     <div class="steps">
-      <div v-for="{ title }, index in steps" class="step" :class="{ 'step-primary': activeStepIndex >= index }">
+      <div
+        v-for="{ title }, index in steps"
+        :key="title"
+        class="step"
+        :class="{ 'step-primary': activeStepIndex >= index }"
+      >
         {{ title }}
       </div>
     </div>
 
-    <slot :name="activeStep.name" v-bind="{ previousStep, nextStep }" class="step-body"></slot>
+    <slot
+      :name="activeStep.name"
+      v-bind="{ previousStep, nextStep }"
+      class="step-body"
+    />
   </div>
 </template>
 

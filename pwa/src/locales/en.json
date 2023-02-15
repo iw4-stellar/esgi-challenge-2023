@@ -8,6 +8,11 @@
     "company": "Company",
     "funder": "Funder"
   },
+  "app": {
+    "menu": {
+      "projects": "Projects"
+    }
+  },
   "register": {
     "title": "Sign Up",
     "steps": {
@@ -94,7 +99,9 @@
       },
       "submit": "Sign in",
       "errors": {
-        "invalid": "Invalid credentials. Try again"
+        "global": {
+          "unauthorized": "Invalid credentials. Try again"
+        }
       }
     },
     "signUp": "Create an account"

@@ -1,20 +1,30 @@
 <template>
   <div class="login-form">
     <div class="header prose">
-      <button class="btn btn-ghost mb-2" @click="handleBack">
-        <i class="pi pi-arrow-left mr-2"></i>
+      <button
+        class="btn btn-ghost mb-2"
+        @click="handleBack"
+      >
+        <i class="pi pi-arrow-left mr-2" />
         {{ $t('register.login.back') }}
       </button>
-      <h1>{{  $t('register.login.title') }}</h1>
+      <h1>{{ $t('register.login.title') }}</h1>
     </div>
 
     <div class="body">
-      <fun-form :initial-values="form" :validate="validateLogin" @submit="handleSubmit">
+      <fun-form
+        :initial-values="form"
+        :validate="validateLogin"
+        @submit="handleSubmit"
+      >
         <template #default="{ onSubmit, errors, isSubmitting }">
           <form @submit.prevent="onSubmit">
             <div class="errors">
-              <div v-if="errors.email && errors.email === 'unique'" class="error">
-                <i class="pi pi-times"></i>
+              <div
+                v-if="errors.email && errors.email === 'unique'"
+                class="error"
+              >
+                <i class="pi pi-times" />
                 <span>{{ $t('register.login.form.errors.email.unique') }}</span>
               </div>
             </div>
@@ -27,7 +37,12 @@
                   <span class="text-accent">*</span>
                 </span>
               </label>
-              <fun-form-field name="email" type="email" class="input lowercase" required />
+              <fun-form-field
+                name="email"
+                type="email"
+                class="input lowercase"
+                required
+              />
             </div>
 
             <!-- Password -->
@@ -39,7 +54,7 @@
                 </span>
               </label>
               <div class="input-group">
-                <fun-form-field name="password" :type="passwordType" class="input flex-1" minlength="8"
+                <fun-form-field id="login-password" name="password" :type="passwordType" class="input flex-1" minlength="8"
                   maxlength="32" required />
                 <button class="btn btn-square" tabindex="-1" @click.prevent="toggleShowPassword()">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -66,7 +81,7 @@
                 </span>
               </label>
               <div class="input-group">
-                <fun-form-field name="confirmPassword" :type="passwordType" class="input flex-1" minlength="8"
+                <fun-form-field id="login-password-confirm" name="confirmPassword" :type="passwordType" class="input flex-1" minlength="8"
                   maxlength="32" :placeholder="$t('register.login.form.confirmPassword.placeholder')" required />
                 <button class="btn btn-square" tabindex="-1" @click.prevent="toggleShowPassword()">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -80,8 +95,11 @@
 
               <!-- Confirm password Errors -->
               <div v-if="errors.confirmPassword">
-                <div v-show="errors.confirmPassword === 'match'" class="error">
-                  <i class="pi pi-times"></i>
+                <div
+                  v-show="errors.confirmPassword === 'match'"
+                  class="error"
+                >
+                  <i class="pi pi-times" />
                   <span>{{ $t('register.login.form.errors.confirmPassword.match') }}</span>
                 </div>
               </div>
@@ -89,16 +107,18 @@
 
             <!-- Submit -->
             <div class="form-control mt-6">
-              <button class="btn btn-primary mb-2" :class="{
-                'loading': isSubmitting,
-              }">
+              <button
+                class="btn btn-primary mb-2"
+                :class="{
+                  'loading': isSubmitting,
+                }"
+              >
                 {{ $t('register.login.form.submit') }}
               </button>
               <p class="text-center text-xs text-accent">
                 * {{ $t('base.required') }}
               </p>
             </div>
-
           </form>
         </template>
       </fun-form>
@@ -121,7 +141,7 @@ interface LoginFormInterface {
 type LoginFormErrors = Partial<Record<keyof LoginFormInterface, string>>;
 
 export default defineComponent({
-  name: 'Registerlogin.form',
+  name: 'RegisterLoginForm',
   components: {
     FunForm,
     FunFormField,
