@@ -1,6 +1,9 @@
 <template>
-  <Component :is="as" v-bind="{ value, onInput, disabled }">
-    <slot></slot>
+  <Component
+    :is="as"
+    v-bind="{ value, onInput, disabled }"
+  >
+    <slot />
   </Component>
 </template>
 
@@ -9,6 +12,7 @@ import type { FunFormValue, FunFormValueGetter, FunFormValueSetter } from './../
 
 export default {
   name: 'FunFormField',
+  inject: ['getValueByName', 'setValueByName', 'getIsSubmitting'],
   props: {
     name: {
       type: String,
@@ -19,7 +23,6 @@ export default {
       default: 'input',
     },
   },
-  inject: ['getValueByName', 'setValueByName', 'getIsSubmitting'],
   data() {
     return {
       modelValue: null,

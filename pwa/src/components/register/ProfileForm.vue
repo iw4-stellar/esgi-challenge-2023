@@ -6,26 +6,38 @@
     </div>
 
     <div class="body">
-      <fun-form :initial-values="form" @submit="handleSubmit">
-        <template #default="{ onSubmit, errors, isSubmitting }">
+      <fun-form
+        :initial-values="form"
+        @submit="handleSubmit"
+      >
+        <template #default="{ onSubmit, isSubmitting }">
           <form @submit.prevent="onSubmit">
             <div class="form-control">
-            <label class="label">
-              <span class="label-text">
-                {{ $t('register.profile.form.name.label') }}
-              </span>
-            </label>
-            <fun-form-field name="name" type="text" class="input" required />
-          </div>
+              <label class="label">
+                <span class="label-text">
+                  {{ $t('register.profile.form.name.label') }}
+                </span>
+              </label>
+              <fun-form-field
+                name="name"
+                type="text"
+                class="input"
+                required
+              />
+            </div>
     
-          <div class="mt-4 flex gap-4 items-center">
-            <button type="submit" class="btn btn-primary btn-block" :class="{ loading: isSubmitting }">
-              {{ $t('register.profile.form.submit') }}
-            </button>
-          </div>
-        </form>
+            <div class="mt-4 flex gap-4 items-center">
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                :class="{ loading: isSubmitting }"
+              >
+                {{ $t('register.profile.form.submit') }}
+              </button>
+            </div>
+          </form>
         </template>
-    </fun-form>
+      </fun-form>
     </div>
   </div>
 </template>
@@ -54,7 +66,7 @@ export default defineComponent({
     };
   },
   methods: {
-    handleSubmit(values: ProfileFormInterface, setIsSubmitting: (isSubmitting: boolean) => void) {
+    handleSubmit(_values: ProfileFormInterface, setIsSubmitting: (isSubmitting: boolean) => void) {
       setIsSubmitting(true);
       
       setTimeout(() => {

@@ -5,7 +5,10 @@
         <user-type-selector :next-step="nextStep" />
       </template>
       <template #login="{ previousStep, nextStep }">
-        <login-form :previous-step="previousStep" :next-step="nextStep" />
+        <login-form
+          :previous-step="previousStep"
+          :next-step="nextStep"
+        />
       </template>
       <template #verify-email="{ nextStep }">
         <verify-email :next-step="nextStep" />
@@ -21,8 +24,6 @@
 import { defineComponent } from 'vue';
 import type { Step } from '@/../types';
 import FunStepper from '@/components/FunStepper.vue';
-import FunForm from '@/components/funComponents/FunForm.vue';
-import FunFormField from '@/components/funComponents/form/FunFormField.vue';
 
 import UserTypeSelector from '@/components/register/UserTypeSelector.vue'
 import LoginForm from '@/components/register/LoginForm.vue'
@@ -32,15 +33,24 @@ import ProfileForm from '@/components/register/ProfileForm.vue'
 type UserType = 'funder' | 'company';
 
 export default defineComponent({
-  name: 'Register',
+  name: 'RegisterView',
   components: {
     FunStepper,
-    FunForm,
-    FunFormField,
     UserTypeSelector,
     LoginForm,
     VerifyEmail,
     ProfileForm,
+  },
+  provide() {
+    return {
+      getUserType: this.getUserType,
+      setUserType: this.setUserType,
+    };
+  },
+  beforeRouteLeave() {
+    if (!this.userType) return true;
+
+    return window.confirm('Are you sure?');
   },
   data() {
     return {
@@ -76,17 +86,6 @@ export default defineComponent({
     setUserType(type: UserType) {
       this.userType = type;
     },
-  },
-  provide() {
-    return {
-      getUserType: this.getUserType,
-      setUserType: this.setUserType,
-    };
-  },
-  beforeRouteLeave() {
-    if (!this.userType) return true;
-
-    return window.confirm('Are you sure?');
   },
 });
 </script>

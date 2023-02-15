@@ -6,7 +6,7 @@ import FunHeader from './components/Header.vue';
   <div class="app">
     <fun-header />
     <main class="p-8">
-      <router-view></router-view>
+      <router-view />
     </main>
   </div>
 </template>

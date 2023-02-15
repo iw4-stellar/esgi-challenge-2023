@@ -1,5 +1,5 @@
 <template>
-  <slot v-bind="{ values, errors, onSubmit, isSubmitting }"></slot>
+  <slot v-bind="{ values, errors, onSubmit, isSubmitting }" />
 </template>
 
 <script lang="ts">
@@ -8,6 +8,13 @@ import { FunFormData, FunFormErrors, FunFormValues } from '../../../types';
 
 export default defineComponent({
   name: 'FunForm',
+  provide() {
+    return {
+      getValueByName: this.getValueByName,
+      setValueByName: this.setValueByName,
+      getIsSubmitting: this.getIsSubmitting,
+    }
+  },
   props: {
     initialValues: {
       type: Object,
@@ -15,7 +22,7 @@ export default defineComponent({
     },
     validate: {
       type: Function,
-      default: () => (values: FunFormValues): FunFormErrors => ({}),
+      default: () => (): FunFormErrors => ({}),
     },
   },
   emits: ['submit'],
@@ -25,6 +32,9 @@ export default defineComponent({
       errors: {},
       isSubmitting: false,
     }
+  },
+  created() {
+    this.values = { ...this.initialValues }
   },
   methods: {
     onSubmit() {
@@ -52,16 +62,6 @@ export default defineComponent({
     setErrors(errors: FunFormErrors) {
       this.errors = errors;
     },
-  },
-  provide() {
-    return {
-      getValueByName: this.getValueByName,
-      setValueByName: this.setValueByName,
-      getIsSubmitting: this.getIsSubmitting,
-    }
-  },
-  created() {
-    this.values = { ...this.initialValues }
   },
 });
 </script>

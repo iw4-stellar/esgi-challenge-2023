@@ -3,37 +3,56 @@
     <div class="header prose">
       <h1>{{ $t('register.verifyEmail.title') }}</h1>
       <p>{{ $t('register.verifyEmail.greeting') }}</p>
-      <p v-html="$t('register.verifyEmail.subtitle')"></p>
-      <p class="font-bold">If you did not receive the verification code, please check your spam folder or contact us for
-        assistance.</p>
+      <p v-html="$t('register.verifyEmail.subtitle')" />
+      <p class="font-bold">
+        If you did not receive the verification code, please check your spam folder or contact us for
+        assistance.
+      </p>
     </div>
 
     <div class="body">
-      <fun-form :initial-values="form" :validate="validate" @submit="handleSubmit">
-        <template #default="{ onSubmit, errors, isSubmitting }">
+      <fun-form
+        :initial-values="form"
+        :validate="validate"
+        @submit="handleSubmit"
+      >
+        <template #default="{ onSubmit, isSubmitting }">
           <form @submit.prevent="onSubmit">
             <div class="form-control">
-            <label class="label">
-              <span class="label-text">
-                {{ $t('register.verifyEmail.form.code.label') }}
-              </span>
-            </label>
-            <fun-form-field name="code" type="text" class="input w-48" required />
-          </div>
+              <label class="label">
+                <span class="label-text">
+                  {{ $t('register.verifyEmail.form.code.label') }}
+                </span>
+              </label>
+              <fun-form-field
+                name="code"
+                type="text"
+                class="input w-48"
+                required
+              />
+            </div>
 
-          <!-- TODO: Add error message -->
+            <!-- TODO: Add error message -->
     
-          <div class="mt-4 flex gap-4 items-center">
-            <button type="submit" class="btn btn-primary" :class="{ loading: isSubmitting }">
-              {{ $t('register.verifyEmail.form.submit') }}
-            </button>
-            <button type="reset" class="btn btn-ghost" v-show="!isSubmitting">
-              {{ $t('register.verifyEmail.form.resend') }}
-            </button>
-          </div>
-        </form>
+            <div class="mt-4 flex gap-4 items-center">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                :class="{ loading: isSubmitting }"
+              >
+                {{ $t('register.verifyEmail.form.submit') }}
+              </button>
+              <button
+                v-show="!isSubmitting"
+                type="reset"
+                class="btn btn-ghost"
+              >
+                {{ $t('register.verifyEmail.form.resend') }}
+              </button>
+            </div>
+          </form>
         </template>
-    </fun-form>
+      </fun-form>
     </div>
   </div>
 </template>
@@ -64,11 +83,11 @@ export default defineComponent({
     };
   },
   methods: {
-    validate(values: VerifyEmailInterface) {
+    validate(_values: VerifyEmailInterface) {
       const errors = {}
       return errors;
     },
-    handleSubmit(values: VerifyEmailInterface, setIsLoading: (isSubmitting: boolean) => void) {
+    handleSubmit(_values: VerifyEmailInterface, setIsLoading: (isSubmitting: boolean) => void) {
       setIsLoading(true);
 
       setTimeout(() => {
