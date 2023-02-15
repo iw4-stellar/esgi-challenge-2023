@@ -12,9 +12,6 @@
         @click="goToProject(project.id)"
       />
     </div>
-    <div class="text-center my-6">
-      <button @click="goToDonation" class="bg-blue-500 text-white p-4 rounded-lg">Faire un don</button>
-    </div>
   </div>
 </template>
 
@@ -33,7 +30,7 @@ export default {
           id: 1,
           name: "Projet A",
           image: companyImg,
-          description: "Notre projet A vise à construire une nouvelle application pour faciliter la vie quotidienne des gens."
+          description: "Notre projet A vise à construire une nouvelle application pour faciliter la vie quotidienne des gens.",
         },
         {
           id: 2,
@@ -53,15 +50,12 @@ export default {
           image: companyImg,
           description: "Notre projet D vise à construire un système de santé plus accessible pour les personnes défavorisées."
         }
-      ]
+      ],
     };
   },
   methods: {
     goToProject(id: number) {
       this.$router.push({ path: `/projects/${id}` });
-    },
-    goToDonation() {
-      this.$router.push({ path: `/donation` });
     }
   }
 };

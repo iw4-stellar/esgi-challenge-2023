@@ -16,7 +16,17 @@ const routes: RouteRecordRaw[] = [
     name: 'projects',
     path: '/projects',
     component: () => import('../views/Projects.vue'),
-  }
+  },
+  {
+    name: 'ProjectDetails',
+    path: '/projects/:id',
+    component: () => import('../views/ProjectDetails.vue'),
+  },
+  {
+    name: 'CreateProject',
+    path: '/create',
+    component: () => import('../views/CreateProject.vue'),
+  },
 ]
 
 const history = createWebHistory()

@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,vue}",
+    "./node_modules/daisyui/**/*..{js,ts,vue}"
   ],
   theme: {
     extend: {},
