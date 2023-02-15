@@ -1,14 +1,41 @@
 <template>
   <header class="fun-header navbar border-b-2 border-b-primary">
     <div class="navbar-start">
-      <router-link to="/" class="text-primary font-bold">{{ name }}</router-link>
+      <router-link
+        to="/"
+        class="text-primary font-bold"
+      >
+        {{ name }}
+      </router-link>
     </div>
-    <div v-if="isLogged" class="navbar-end">
-      <router-link to="/" @click="logout" class="btn btn-error">Logout</router-link>
+    <div
+      v-if="isLogged"
+      class="navbar-end"
+    >
+      <router-link
+        to="/"
+        class="btn btn-error"
+        @click="logout"
+      >
+        Logout
+      </router-link>
     </div>
-    <div v-else class="navbar-end">
-      <router-link to="/login" class="btn btn-ghost">Login</router-link>
-      <router-link to="/register" class="btn btn-ghost">Register</router-link>
+    <div
+      v-else
+      class="navbar-end"
+    >
+      <router-link
+        to="/login"
+        class="btn btn-ghost"
+      >
+        Login
+      </router-link>
+      <router-link
+        to="/register"
+        class="btn btn-ghost"
+      >
+        Register
+      </router-link>
     </div>
   </header>
 </template>

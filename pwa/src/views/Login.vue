@@ -4,12 +4,18 @@
       <h1>{{ $t('login.title') }}</h1>
     </div>
     <div class="content">
-      <fun-form :initial-values="form" @submit="handleFormSubmit">
+      <fun-form
+        :initial-values="form"
+        @submit="handleFormSubmit"
+      >
         <template #default="{ onSubmit, errors, isSubmitting }">
           <form @submit.prevent="onSubmit">
             <div class="errrors">
-              <div v-if="isInvalidCredentials(errors)" class="error">
-                <i class="pi pi-times"></i>
+              <div
+                v-if="isInvalidCredentials(errors)"
+                class="error"
+              >
+                <i class="pi pi-times" />
                 <span>{{ $t('login.form.errors.global.unauthorized') }}</span>
               </div>
             </div>
@@ -19,7 +25,12 @@
               <label class="label">
                 <span class="label-text">{{ $t('login.form.email.label') }}</span>
               </label>
-              <fun-form-field type="email" name="email" class="input" required />
+              <fun-form-field
+                type="email"
+                name="email"
+                class="input"
+                required
+              />
             </div>
 
             <!-- Password -->
@@ -27,12 +38,21 @@
               <label class="label">
                 <span class="label-text">{{ $t('login.form.password.label') }}</span>
               </label>
-              <fun-form-field name="password" type="password" class="input" required />
+              <fun-form-field
+                name="password"
+                type="password"
+                class="input"
+                required
+              />
             </div>
 
             <!-- Submtit -->
             <div class="form-control mt-4">
-              <button class="btn btn-primary" :class="{ loading: isSubmitting }" type="submit">
+              <button
+                class="btn btn-primary"
+                :class="{ loading: isSubmitting }"
+                type="submit"
+              >
                 {{ $t('login.form.submit') }}
               </button>
             </div>
@@ -45,7 +65,10 @@
       </div>
 
       <div>
-        <router-link to="/register" class="btn btn-secondary btn-outline btn-block">
+        <router-link
+          to="/register"
+          class="btn btn-secondary btn-outline btn-block"
+        >
           {{ $t('login.signUp') }}
         </router-link>
       </div>
@@ -67,7 +90,7 @@ interface LoginInterface {
 type LoginErrors = Partial<Record<keyof LoginInterface, string>>;
 
 export default defineComponent({
-  name: 'Login',
+  name: 'LoginView',
   components: {
     FunForm,
     FunFormField,

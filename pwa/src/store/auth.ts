@@ -12,15 +12,11 @@ export const useAuthStore = defineStore('auth', {
       const { data } = await axios.post('/register', form)
     },
     async login(form: { username: string, password: string }) {
-      try {
-        const { data } = await axios.post('/login_check', form);
-        this.saveToken(data.token);
-        this.isLogged = true;
+      const { data } = await axios.post('/login_check', form);
+      this.saveToken(data.token);
+      this.isLogged = true;
 
-        return data;
-      } catch (error) {
-        throw error;
-      }
+      return data;
     },
     logout() {
       this.$reset();
