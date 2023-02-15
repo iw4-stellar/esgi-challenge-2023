@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "vue-property-decorator": "^9.1.2"
+  },
+  "devDependencies": {
+    "daisyui": "^2.50.1"
+  }
+}
