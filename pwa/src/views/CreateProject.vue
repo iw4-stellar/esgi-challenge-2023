@@ -7,6 +7,18 @@
           <input v-model="project.name" type="text" id="name" class="w-full p-2 border border-gray-400 rounded"/>
         </div>
         <div class="my-4">
+          <div class="my-4">
+          <label class="block font-bold mb-2" for="category">Catégorie :</label>
+          <select v-model="project.category" class="w-full p-2 border border-gray-400 rounded">
+          <option disabled value="">Sélectionnez une catégorie</option>
+          <option value="art">Art</option>
+          <option value="design">Design</option>
+          <option value="mode">Mode</option>
+          <option value="musique">Musique</option>
+          <option value="photographie">Photographie</option>
+          <option value="technologie">Technologie</option>
+        </select>
+        </div>
           <label class="block font-bold mb-2" for="description">Description :</label>
           <textarea v-model="project.description" id="description" class="w-full p-2 border border-gray-400 rounded"></textarea>
         </div>
@@ -19,7 +31,7 @@
             <input @change="handleImageUpload" type="file" id="image" class="w-full p-2 border border-gray-400 rounded"/>
         </div>
         <div class="my-4">
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Créer le projet</button>
+            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Créer le projet</button>
         </div>
       </form>
     </div>
@@ -35,7 +47,8 @@
           name: "",
           description: "",
           amount: 0,
-          image: ""
+          image: "",
+          category: ""
         }
       };
     },
@@ -45,13 +58,15 @@
         // Vous pouvez appeler une API pour créer un nouveau projet ici
       },
       handleImageUpload(event: any) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          this.project.image = reader.result as string;
-        };
-      }
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.project.image = reader.result as string;
+      };
+
+      reader.readAsDataURL(file);
+    }
     }
   });
   </script>
