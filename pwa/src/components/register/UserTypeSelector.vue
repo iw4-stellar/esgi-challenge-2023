@@ -50,8 +50,7 @@ import FunSelector from '@/components/funComponents/FunSelector.vue';
 
 import CompanyImg from '../../assets/company.jpg'
 import FunderImg from '../../assets/funder.jpg'
-
-type UserType = 'company' | 'funder';
+import type { UserType } from '../../../types';
 
 export default defineComponent({
   name: 'RegisterUserTypeSelector',
@@ -91,6 +90,8 @@ export default defineComponent({
     },
     handleNext() {
       this.nextStep && this.nextStep();
+
+      this.$router.push({ path: 'register', query: { userType: this.userType }})
     }
   },
 });

@@ -19,7 +19,7 @@
       >
         <template #default="{ onSubmit, errors, isSubmitting }">
           <form @submit.prevent="onSubmit">
-            <div class="errors">
+            <div v-if="errors" class="errors">
               <div
                 v-if="errors.email && errors.email === 'unique'"
                 class="error"
@@ -178,6 +178,7 @@ import { defineComponent } from 'vue';
 import FunForm from '@/components/funComponents/FunForm.vue';
 import FunFormField from '@/components/funComponents/form/FunFormField.vue';
 import { useAuthStore } from '@/store/auth';
+import { UserType } from '../../../types';
 
 interface LoginFormInterface {
   email: string;
@@ -200,9 +201,9 @@ export default defineComponent({
   setup() {
     const authStore = useAuthStore();
 
-    const { register } = authStore;
+    const { register, login } = authStore;
 
-    return { register };
+    return { register, login };
   },
   data() {
     return {
@@ -235,10 +236,21 @@ export default defineComponent({
     handleBack() {
       this.previousStep && this.previousStep();
     },
-    async handleSubmit(values: LoginFormInterface, setIsSubmitting: (isSubmitting: boolean) => void, setErrors: (errrors: LoginFormErrors) => void) {
+    async handleSubmit(form: LoginFormInterface, setIsSubmitting: (isSubmitting: boolean) => void, setErrors: (errrors: LoginFormErrors) => void) {
       setIsSubmitting(true);
       try {
-        await this.register(values);
+        const userType = this.$route.query.userType as UserType || 'funder';
+        
+        await this.register({
+          ...form,
+          userType,
+        });
+
+        const credentials = {
+          ...form,
+          username: form.email,
+        }
+        await this.login(credentials);
 
         this.nextStep && this.nextStep();
       } catch (error: any) {

@@ -10,9 +10,9 @@
           :next-step="nextStep"
         />
       </template>
-      <template #verify-email="{ nextStep }">
+      <!-- <template #verify-email="{ nextStep }">
         <verify-email :next-step="nextStep" />
-      </template>
+      </template> -->
       <template #profile-form="{ nextStep }">
         <profile-form :next-step="nextStep" />
       </template>
@@ -68,10 +68,10 @@ export default defineComponent({
           name: 'login',
           title: this.$t('register.steps.login')
         },
-        {
-          name: 'verify-email',
-          title: this.$t('register.steps.verifyEmail')
-        },
+        // {
+        //   name: 'verify-email',
+        //   title: this.$t('register.steps.verifyEmail')
+        // },
         {
           name: 'profile-form',
           title: this.$t('register.steps.profile')

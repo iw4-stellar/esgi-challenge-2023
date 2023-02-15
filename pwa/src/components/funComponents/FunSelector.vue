@@ -25,9 +25,6 @@ interface Option {
 export default defineComponent({
   name: 'FunSelector',
   props: {
-    modelValue: {
-      required: true,
-    },
     options: {
       type: Array<Option>,
       default: () => [],
@@ -38,9 +35,6 @@ export default defineComponent({
     return {
       value: null as any,
     };
-  },
-  created() {
-    this.value = this.modelValue;
   },
   methods: {
     isActive(option: Option) {

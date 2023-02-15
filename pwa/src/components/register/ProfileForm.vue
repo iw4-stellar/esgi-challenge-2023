@@ -47,6 +47,8 @@
 import { defineComponent } from 'vue';
 import FunForm from '@/components/funComponents/FunForm.vue';
 import FunFormField from '@/components/funComponents/form/FunFormField.vue';
+import { useAppStore } from '@/store/app';
+import { storeToRefs } from 'pinia';
 
 interface ProfileFormInterface {
   name: string;
@@ -58,6 +60,17 @@ export default defineComponent({
     FunForm,
     FunFormField,
   },
+  setup() {
+    const appStore = useAppStore()
+    const { profile, patchUser } = appStore;
+    const { user } = storeToRefs(appStore)
+    
+    return {
+      user,
+      profile,
+      patchUser,
+    }
+  },
   data() {
     return {
       form: {
@@ -66,14 +79,16 @@ export default defineComponent({
     };
   },
   methods: {
-    handleSubmit(_values: ProfileFormInterface, setIsSubmitting: (isSubmitting: boolean) => void) {
+    async handleSubmit(values: ProfileFormInterface, setIsSubmitting: (isSubmitting: boolean) => void) {
       setIsSubmitting(true);
-      
-      setTimeout(() => {
-        this.$router.replace('index')
-      }, 3000);
+
+      await this.patchUser(this.user.id, values);
+      this.$router.replace('/');
     },
   },
+  async created() {
+    this.profile();
+  }
 });
 </script>
 
